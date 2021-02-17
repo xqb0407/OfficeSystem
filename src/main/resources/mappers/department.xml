@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.oa.dao.DepartmentDao">
+    <select id="SelectBydeparTmentId" parameterType="java.lang.Long" resultType="xyz.oa.entity.Department">
+        SELECT  * FROM adm_department WHERE department_id= #{value}
+    </select>
+
+</mapper>

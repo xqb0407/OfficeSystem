@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="node">
+    <select id="selectParentId" resultType="xyz.oa.entity.Node" parameterType="Long">
+        select * from sys_node where parent_id=#{value}
+
+
+    </select>
+</mapper>
+<!--        SELECT * FROM sys_node WHERE parent_id = #{parentId} AND node_id in(-->
+<!--        SELECT-->
+<!--        DISTINCT sn.node_id-->
+<!--        FROM-->
+<!--        sys_role_user sru-->
+<!--        JOIN sys_role_node srn ON sru.role_id = srn.role_id-->
+<!--        JOIN sys_node sn ON srn.node_id = sn.node_id-->
+<!--        WHERE-->
+<!--        sru.user_id = #{userId} AND parent_id = #{parentId}-->
+<!--        )-->

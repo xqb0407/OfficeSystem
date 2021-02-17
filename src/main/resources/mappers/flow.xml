@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.oa.dao.FlowDao">
+    <insert id="InsertFlow" parameterType="xyz.oa.entity.Flow">
+        INSERT INTO sys_flow(flowTime,flowNum,flowMethod,user_id) VALUES(#{flowTime},#{flowNum},#{flowMethod},#{userId})
+    </insert>
+</mapper>

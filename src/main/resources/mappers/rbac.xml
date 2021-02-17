@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="rbac">
+<!--    <resultMap id="SelectParent" type="xyz.oa.entity.Node">-->
+<!--        <id property="parentId" column="parent_id"/>-->
+<!--        <collection property="ParentList" select="node.selectParentId" column="node_id"></collection>-->
+<!--    </resultMap>-->
+    <select id="SelectNodeByUserId" parameterType="Long" resultType="xyz.oa.entity.Node">
+        SELECT
+	        DISTINCT sn.*
+        FROM
+	        sys_role_user sru
+        JOIN sys_role_node srn ON sru.role_id = srn.role_id
+        JOIN sys_node sn ON srn.node_id = sn.node_id
+        WHERE
+            sru.user_id = #{value}
+        ORDER BY sn.node_id;
+    </select>
+</mapper>

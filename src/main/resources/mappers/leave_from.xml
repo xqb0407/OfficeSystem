@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.oa.dao.LeaveFromDao">
+    <insert id="Insert" parameterType="xyz.oa.entity.LeaveFrom"
+    useGeneratedKeys="true" keyProperty="formId" keyColumn="form_id">
+
+        INSERT INTO adm_leave_from(employee_id, form_type, start_time, end_time, reason, create_time, state)
+        VALUES (#{employeeId}, #{formType}, #{startTime}, #{endTime}, #{reason}, #{createTime}, #{state})
+    </insert>
+    <!--请假审批列表-->
+    <select id="SelectByParems" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT
+            alf.* ,
+            aem.name,
+            ad.*
+        FROM
+            adm_process_flow apf
+            JOIN adm_leave_from alf ON apf.form_id = alf.form_id
+            JOIN adm_employee aem ON aem.employee_id = alf.employee_id
+            JOIN adm_department ad ON ad.department_id = aem.department_id
+        WHERE
+            apf.state = #{apf_state} AND apf.operatop_id = #{apf_operatop_id}
+    </select>
+    <!--更新请假表-->
+    <update id="UpdateFromLeave" parameterType="xyz.oa.entity.LeaveFrom">
+        UPDATE adm_leave_from
+        SET employee_id = #{employeeId}, form_type = #{formType}
+            , start_time = #{startTime}
+            , end_time = #{endTime}
+            , reason = #{reason}, create_time = #{createTime}
+            , state = #{state}
+         WHERE form_id = #{formId};
+    </update>
+    <!--查询请假表根据formId-->
+    <select id="SelectLeaveFromByFormId" parameterType="Long" resultType="xyz.oa.entity.LeaveFrom">
+        SELECT * FROM adm_leave_from WHERE form_id = #{value}
+    </select>
+</mapper>
